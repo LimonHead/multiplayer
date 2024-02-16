@@ -1,17 +1,17 @@
 const express = require("express");
 const app = express();
-const port = process.env.PORT || 3001;
+const http = require("http");
+const server = http.createServer(app);
+const port = process.env.PORT || 6028;
 
-app.get("/", (req, res) => res.type('html').send(html));
+const { Server } = require("socket.io");
+const io = new Server(server, { pingInterval: 2000, pingTimeout: 1000 });
 
-const server = app.listen(port, () => console.log(`Example app listening on port ${port}!`));
+app.get("/", (req, res) => {
+  res.sendFile(__dirname + "/main.html");
+});
 
-server.keepAliveTimeout = 120 * 1000;
-server.headersTimeout = 120 * 1000;
-
-const html = `
-<!DOCTYPE html>
-<html>
-  yo
-</html>
-`
+// Start server
+server.listen(3000, () => {
+	console.log("Server started");
+});
