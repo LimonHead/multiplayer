@@ -8,10 +8,11 @@ const { Server } = require("socket.io");
 const io = new Server(server, { pingInterval: 2000, pingTimeout: 1000 });
 
 app.get("/", (req, res) => {
-  res.sendFile(__dirname + "/main.html");
+	//res.sendFile(__dirname + "/main.html");
+	res.type('html').send("yo");
 });
 
 // Start server
-server.listen(3000, () => {
+server.listen(port, () => {
 	console.log("Server started");
 });
